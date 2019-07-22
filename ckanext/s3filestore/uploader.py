@@ -60,7 +60,8 @@ class BaseS3Uploader(object):
         '''Return a boto bucket, creating it if it doesn't exist.'''
 
         # make s3 connection using boto3
-
+        log.error('>>>>>>>>>>>>>>>>>>>>>>>')
+        log.error(bucket_name)
         s3 = self.get_s3_session().resource('s3', endpoint_url=self.host_name,
                                             config=botocore.client.Config(
                                              signature_version=self.signature))
@@ -82,6 +83,9 @@ class BaseS3Uploader(object):
                     log.warning('Could not create bucket {0}: {1}'.format(
                         bucket_name, str(e)))
         except botocore.exceptions.ClientError as e:
+            log.error('===============================')
+            log.error(e.response['Error'])
+            log.error(e)
             error_code = int(e.response['Error']['Code'])
             if error_code == 404:
                 log.warning('Bucket {0} could not be found, ' +
