@@ -60,6 +60,8 @@ class BaseS3Uploader(object):
         '''Return a boto bucket, creating it if it doesn't exist.'''
 
         # make s3 connection using boto3
+        log.error(self.p_key)
+        log.error(self.s_key)
         log.error('>>>>>>>>>>>>>>>>>>>>>>>')
         log.error(bucket_name)
         s3 = self.get_s3_session().resource('s3', endpoint_url=self.host_name,
