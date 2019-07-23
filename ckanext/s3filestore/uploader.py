@@ -69,7 +69,12 @@ class BaseS3Uploader(object):
         s3 = self.get_s3_session().resource('s3', endpoint_url=self.host_name,
                                             config=botocore.client.Config(
                                              signature_version=self.signature))
+        log.error('<<<<<<<<<<<<<<<<<<<<<<')
+        log.error(self.get_s3_session())
+        log.error(s3)
+        log.error(dir(s3))
         bucket = s3.Bucket(bucket_name)
+        log.error('========================')
         log.error(bucket)
         log.error(bucket.name)
         log.error(s3.buckets)
