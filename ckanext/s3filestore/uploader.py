@@ -64,10 +64,17 @@ class BaseS3Uploader(object):
         log.error(self.s_key)
         log.error('>>>>>>>>>>>>>>>>>>>>>>>')
         log.error(bucket_name)
+        log.error(self.host_name)
+        log.error(self.signature)
         s3 = self.get_s3_session().resource('s3', endpoint_url=self.host_name,
                                             config=botocore.client.Config(
                                              signature_version=self.signature))
         bucket = s3.Bucket(bucket_name)
+        log.error(bucket)
+        log.error(bucket.name)
+        log.error(s3.buckets)
+        log.error(dir(s3.buckets))
+        log.error(s3.buckets.all())
         try:
             if s3.Bucket(bucket.name) in s3.buckets.all():
                 log.info('Bucket {0} found!'.format(bucket_name))
@@ -86,7 +93,7 @@ class BaseS3Uploader(object):
                         bucket_name, str(e)))
         except botocore.exceptions.ClientError as e:
             log.error('===============================')
-            log.error(e.response['Error'])
+            log.error(e.response)
             log.error(e)
             error_code = int(e.response['Error']['Code'])
             if error_code == 404:
